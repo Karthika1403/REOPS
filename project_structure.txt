@@ -1,0 +1,110 @@
+.
+├── .DS_Store
+├── .gitignore
+├── README,md
+├── backend
+│   ├── .DS_Store
+│   ├── .env
+│   ├── .env.example
+│   ├── .gitignore
+│   ├── Procfile
+│   ├── README.md
+│   ├── agents
+│   │   ├── .DS_Store
+│   │   ├── executor.py
+│   │   └── llm_planner.py
+│   ├── api
+│   │   ├── memory.py
+│   │   └── routes.py
+│   ├── config
+│   │   └── config.py
+│   ├── core
+│   │   └── execution_state.py
+│   ├── datasets
+│   │   ├── .DS_Store
+│   │   ├── metadata.json
+│   │   ├── registry.py
+│   │   ├── service.py
+│   │   └── storage
+│   │       └── heart_disease_sample.csv
+│   ├── main.py
+│   ├── memory
+│   │   ├── .DS_Store
+│   │   ├── registry.py
+│   │   └── store.py
+│   ├── models
+│   │   ├── .DS_Store
+│   │   ├── advanced_training.py
+│   │   ├── registry.py
+│   │   ├── runs.json
+│   │   └── training.py
+│   ├── plugins
+│   │   ├── .DS_Store
+│   │   ├── analyze_document.py
+│   │   ├── email.py
+│   │   ├── generate_workflow_image.py
+│   │   ├── load_pdf.py
+│   │   ├── loader.py
+│   │   ├── registry.py
+│   │   └── research_trends.py
+│   ├── rag
+│   │   ├── .DS_Store
+│   │   ├── chroma_db
+│   │   │   └── chroma.sqlite3
+│   │   └── embedder.py
+│   ├── reports
+│   │   ├── generator.py
+│   │   ├── metadata.json
+│   │   └── storage
+│   │       └── 55908fde-51a0-4719-a61f-9318d5788caa.pdf
+│   ├── requirements.txt
+│   └── uploads
+├── frontend
+│   ├── .env
+│   ├── .env.production
+│   ├── .gitignore
+│   ├── README.md
+│   ├── dist
+│   │   ├── assets
+│   │   │   ├── index-D33k-7G8.css
+│   │   │   └── index-NduXKL_Z.js
+│   │   ├── favicon.svg
+│   │   ├── icons.svg
+│   │   └── index.html
+│   ├── eslint.config.js
+│   ├── index.html
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── public
+│   │   ├── favicon.svg
+│   │   └── icons.svg
+│   ├── src
+│   │   ├── App.jsx
+│   │   ├── assets
+│   │   │   └── hero.png
+│   │   ├── components
+│   │   │   ├── Console
+│   │   │   ├── Core
+│   │   │   │   └── FlowOpsCore.jsx
+│   │   │   ├── Effects
+│   │   │   │   └── ParticleUniverse.jsx
+│   │   │   ├── Modules
+│   │   │   │   ├── AgentNetwork.jsx
+│   │   │   │   └── DocumentHub.jsx
+│   │   │   └── NavBar.jsx
+│   │   ├── index.css
+│   │   ├── main.jsx
+│   │   ├── pages
+│   │   │   ├── Dashboard.jsx
+│   │   │   ├── EvaluationBoard.jsx
+│   │   │   ├── ModelLab.jsx
+│   │   │   └── ResearchLab.jsx
+│   │   ├── services
+│   │   └── styles
+│   └── vite.config.js
+├── package-lock.json
+├── package.json
+├── project_structure.txt
+└── sample.pdf
+
+30 directories, 78 files

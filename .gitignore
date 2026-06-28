@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.env
+venv/
+*.egg-info/
+.DS_Store
+
+# Data files (too large for git)
+backend/rag/chroma_db/
+backend/uploads/*.pdf
+backend/uploads/*.csv
+backend/datasets/storage/
+backend/reports/storage/
+backend/memory/data.json
+backend/models/runs.json
+
+# Node
+node_modules/
+dist/
+.DS_Store
+frontend/.DS_Store
+
+# Env
+*.env
+.env.local

@@ -1,0 +1,606 @@
+@import "tailwindcss";
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #0B1020;
+  color: white;
+  font-family: Inter, sans-serif;
+}
+/* =========================================
+   STARS
+========================================= */
+
+.star {
+  position: absolute;
+
+  border-radius: 9999px;
+
+  background: white;
+
+  opacity: 0.8;
+
+  animation: twinkle infinite ease-in-out;
+
+  box-shadow:
+    0 0 6px white,
+    0 0 12px #67e8f9;
+}
+
+@keyframes twinkle {
+  0% {
+    opacity: 0.2;
+    transform: scale(0.8);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.4);
+  }
+
+  100% {
+    opacity: 0.2;
+    transform: scale(0.8);
+  }
+}
+
+/* =========================================
+   NEBULA
+========================================= */
+
+.nebula-purple {
+  position: absolute;
+
+  top: 10%;
+  left: 10%;
+
+  width: 500px;
+  height: 500px;
+
+  border-radius: 9999px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(168,85,247,0.4),
+      transparent
+    );
+
+  filter: blur(180px);
+
+  opacity: 0.25;
+}
+
+.nebula-cyan {
+  position: absolute;
+
+  bottom: 10%;
+  right: 10%;
+
+  width: 450px;
+  height: 450px;
+
+  border-radius: 9999px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(34,211,238,0.4),
+      transparent
+    );
+
+  filter: blur(180px);
+
+  opacity: 0.25;
+}
+
+/* =========================================
+   STARS
+========================================= */
+
+.star {
+  position: absolute;
+  border-radius: 9999px;
+  animation: twinkle infinite ease-in-out;
+}
+
+/* White */
+
+.star-white {
+  background: white;
+
+  box-shadow:
+    0 0 4px white,
+    0 0 8px white;
+}
+
+/* Cyan */
+
+.star-cyan {
+  background: #22d3ee;
+
+  box-shadow:
+    0 0 6px #22d3ee,
+    0 0 12px #22d3ee,
+    0 0 20px #22d3ee;
+}
+
+/* Purple */
+
+.star-purple {
+  background: #a855f7;
+
+  box-shadow:
+    0 0 6px #a855f7,
+    0 0 12px #a855f7,
+    0 0 20px #a855f7;
+}
+
+@keyframes twinkle {
+  0% {
+    opacity: 0.15;
+    transform: scale(0.6);
+  }
+
+  25% {
+    opacity: 0.8;
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.8);
+  }
+
+  75% {
+    opacity: 0.8;
+  }
+
+  100% {
+    opacity: 0.15;
+    transform: scale(0.6);
+  }
+}
+
+/* =========================================
+   NEBULA
+========================================= */
+
+.nebula-purple {
+  position: absolute;
+
+  top: 10%;
+  left: 10%;
+
+  width: 500px;
+  height: 500px;
+
+  border-radius: 9999px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(168,85,247,0.35),
+      transparent
+    );
+
+  filter: blur(180px);
+
+  opacity: 0.25;
+}
+
+.nebula-cyan {
+  position: absolute;
+
+  bottom: 10%;
+  right: 10%;
+
+  width: 450px;
+  height: 450px;
+
+  border-radius: 9999px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(34,211,238,0.35),
+      transparent
+    );
+
+  filter: blur(180px);
+
+  opacity: 0.25;
+}
+
+/* =========================================
+   SHOOTING STARS
+========================================= */
+
+.meteor {
+  position: absolute;
+
+  width: 4px;
+  height: 4px;
+
+  border-radius: 9999px;
+
+  background: white;
+
+  box-shadow:
+    0 0 10px #22d3ee,
+    0 0 20px #22d3ee,
+    0 0 40px #22d3ee;
+}
+
+.meteor::before {
+  content: "";
+
+  position: absolute;
+
+  top: 50%;
+  right: 0;
+
+  transform: translateY(-50%);
+
+  width: 250px;
+  height: 2px;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,0),
+      rgba(34,211,238,1),
+      rgba(255,255,255,0)
+    );
+
+  filter: blur(2px);
+}
+
+.meteor-1 {
+  top: 5%;
+  left: -20%;
+  animation: meteor1 2.5s linear infinite;
+}
+
+.meteor-2 {
+  top: 20%;
+  left: -25%;
+  animation: meteor2 3s linear infinite;
+}
+
+.meteor-3 {
+  top: 35%;
+  left: -15%;
+  animation: meteor3 4s linear infinite;
+}
+
+.meteor-4 {
+  top: 10%;
+  left: 60%;
+  animation: meteor4 2.8s linear infinite;
+}
+
+.meteor-5 {
+  top: 25%;
+  left: 80%;
+  animation: meteor5 5s linear infinite;
+}
+
+/* =========================================
+   METEOR ANIMATIONS
+========================================= */
+
+@keyframes meteor1 {
+  from {
+    transform: translate(0,0) rotate(135deg);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(1400px,900px) rotate(135deg);
+    opacity: 0;
+  }
+}
+
+@keyframes meteor2 {
+  from {
+    transform: translate(0,0) rotate(135deg);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(1600px,1000px) rotate(135deg);
+    opacity: 0;
+  }
+}
+
+@keyframes meteor3 {
+  from {
+    transform: translate(0,0) rotate(135deg);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(1800px,1200px) rotate(135deg);
+    opacity: 0;
+  }
+}
+
+@keyframes meteor4 {
+  from {
+    transform: translate(0,0) rotate(135deg);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(1500px,1000px) rotate(135deg);
+    opacity: 0;
+  }
+}
+
+@keyframes meteor5 {
+  from {
+    transform: translate(0,0) rotate(135deg);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  to {
+    transform: translate(1700px,1100px) rotate(135deg);
+    opacity: 0;
+  }
+}
+.orbit-container {
+  position: absolute;
+  width: 340px;
+  height: 340px;
+  z-index: 5;
+}
+
+.orbit-node {
+  position: absolute;
+
+  width: 30px;
+  height: 30px;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: white;
+  font-weight: 700;
+  font-size: 10px;
+
+  background: rgba(4, 8, 35, 0.95);
+
+  border: 1px solid rgba(34, 211, 238, 0.6);
+
+  box-shadow:
+    0 0 25px rgba(34,211,238,.8),
+    0 0 60px rgba(34,211,238,.4);
+
+  backdrop-filter: blur(12px);
+
+  z-index: 20;
+}
+
+/* AI */
+.orbit-node-0 {
+  animation: orbit1 18s linear infinite;
+}
+
+/* PDF */
+.orbit-node-1 {
+  animation: orbit2 18s linear infinite;
+}
+
+/* MEM */
+.orbit-node-2 {
+  animation: orbit3 18s linear infinite;
+}
+
+/* API */
+.orbit-node-3 {
+  animation: orbit4 18s linear infinite;
+}
+
+/* BOT */
+.orbit-node-4 {
+  animation: orbit5 18s linear infinite;
+}
+
+/* WF */
+.orbit-node-5 {
+  animation: orbit6 18s linear infinite;
+}
+
+@keyframes orbit1 {
+  from {
+    transform: rotate(0deg) translateX(140px) rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg) translateX(140px) rotate(-360deg);
+  }
+}
+
+@keyframes orbit2 {
+  from {
+    transform: rotate(60deg) translateX(140px) rotate(-60deg);
+  }
+  to {
+    transform: rotate(420deg) translateX(140px) rotate(-420deg);
+  }
+}
+
+@keyframes orbit3 {
+  from {
+    transform: rotate(120deg) translateX(140px) rotate(-120deg);
+  }
+  to {
+    transform: rotate(480deg) translateX(140px) rotate(-480deg);
+  }
+}
+
+@keyframes orbit4 {
+  from {
+    transform: rotate(180deg) translateX(140px) rotate(-180deg);
+  }
+  to {
+    transform: rotate(540deg) translateX(140px) rotate(-540deg);
+  }
+}
+
+@keyframes orbit5 {
+  from {
+    transform: rotate(240deg) translateX(140px) rotate(-240deg);
+  }
+  to {
+    transform: rotate(600deg) translateX(140px) rotate(-600deg);
+  }
+}
+
+@keyframes orbit6 {
+  from {
+    transform: rotate(300deg) translateX(140px) rotate(-300deg);
+  }
+  to {
+    transform: rotate(660deg) translateX(140px) rotate(-660deg);
+  }
+}
+.packet {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+
+  border-radius: 50%;
+
+  background: #22d3ee;
+
+  box-shadow:
+    0 0 15px #22d3ee,
+    0 0 35px #22d3ee;
+
+  animation:
+    packetDown 2.5s linear infinite;
+
+  z-index: 25;
+}
+
+@keyframes packetDown {
+  from {
+    transform: translateY(-80px);
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  to {
+    transform: translateY(120px);
+    opacity: 0;
+  }
+}
+
+/* Left Line */
+
+.packet-horizontal-left {
+  position: absolute;
+
+  width: 10px;
+  height: 10px;
+
+  border-radius: 50%;
+
+  background: #60a5fa;
+
+  box-shadow:
+    0 0 15px #60a5fa,
+    0 0 35px #60a5fa;
+
+  animation:
+    packetLeft 2.5s linear infinite;
+
+  z-index: 25;
+}
+
+@keyframes packetLeft {
+  from {
+    transform: translateX(-120px);
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  to {
+    transform: translateX(120px);
+    opacity: 0;
+  }
+}
+
+/* Right Line */
+
+.packet-horizontal-right {
+  position: absolute;
+
+  width: 10px;
+  height: 10px;
+
+  border-radius: 50%;
+
+  background: #facc15;
+
+  box-shadow:
+    0 0 15px #facc15,
+    0 0 35px #facc15;
+
+  animation:
+    packetRight 2.5s linear infinite;
+
+  z-index: 25;
+}
+
+@keyframes packetRight {
+  from {
+    transform: translateX(120px);
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  to {
+    transform: translateX(-120px);
+    opacity: 0;
+  }
+}

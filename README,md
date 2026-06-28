@@ -1,0 +1,53 @@
+# Repos AI — ML Research Platform
+
+An intelligent machine learning research platform built for researchers to experiment, analyze, and publish findings.
+
+## Features
+- **Dataset Explorer** — Browse 20,000+ OpenML datasets or upload your own CSV
+- **Model Lab** — Train 23 ML models with single/compare/ensemble/optimize modes
+- **Evaluation Board** — Compare models, visualize metrics, generate reports
+- **Research Assistant** — AI chatbot that knows your experiments
+- **Conference Pulse** — Live upcoming AI/ML conference deadlines
+- **Research Frontiers** — Daily AI/ML breakthrough tracker
+
+## Tech Stack
+| Layer | Technology |
+|---|---|
+| Frontend | React 18, Vite, Tailwind CSS |
+| Backend | FastAPI, Python 3.11 |
+| ML Engine | scikit-learn (23 models) |
+| AI/LLM | Groq (Llama 3.3 70B) |
+| Vector DB | ChromaDB |
+| Dataset Search | OpenML API |
+| Web Search | DuckDuckGo Search |
+| PDF Reports | ReportLab |
+
+## Setup
+
+### Backend
+```bash
+cd backend
+pip install -r requirements.txt
+cp .env.example .env
+# Add your GROQ_API_KEY to .env
+uvicorn main:app --reload --port 8000
+```
+
+### Frontend
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+## Author
+Karthika S — Built for Google Student Research 2026
+
+## License
+MIT
+
+
+git add .
+git commit -m "Initial commit — Repos AI Research Platform"
+git remote add origin https://github.com/Karthika1403/REOPS.git
+git push -u origin main
