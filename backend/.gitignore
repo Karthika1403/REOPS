@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+venv/
+.env
+*.egg-info/
+
+# Mac
+.DS_Store
+
+# Data — too large/sensitive for git
+backend/rag/chroma_db/
+backend/uploads/*.pdf
+backend/uploads/*.csv
+backend/uploads/images/
+backend/uploads/generated/
+backend/datasets/storage/
+backend/reports/storage/
+backend/memory/data.json
+backend/models/runs.json
+backend/datasets/metadata.json
+backend/reports/metadata.json
+
+# Node
+node_modules/
+dist/
+.env.local
+.env.production

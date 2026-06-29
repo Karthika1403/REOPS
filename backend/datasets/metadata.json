@@ -1,0 +1,11 @@
+{
+  "1ff77ac9-19d4-4194-9ff4-7024170ec160": {
+    "id": "1ff77ac9-19d4-4194-9ff4-7024170ec160",
+    "name": "heart_disease_sample.csv",
+    "source": "upload",
+    "file_path": "backend/datasets/storage/heart_disease_sample.csv",
+    "n_rows": 100,
+    "n_cols": 14,
+    "uploaded_at": 1782591151.2854521
+  }
+}
