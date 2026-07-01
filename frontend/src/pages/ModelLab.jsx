@@ -1,3 +1,4 @@
+import { API_URL } from '../config';
 import { useState, useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import {
@@ -98,14 +99,14 @@ function ModelLab() {
   const [loadingSuggestions, setLoadingSuggestions] = useState(false);
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000'}/datasets/all`)
+    fetch(`${import.meta.env.VITE_API_URL}/datasets/all`)
       .then(res => res.json())
       .then(data => setAllDatasets(data));
   }, []);
 
   useEffect(() => {
     if (!selectedDataset) return;
-    fetch(`${import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000'}/models/dataset-columns/${selectedDataset}`)
+    fetch(`${import.meta.env.VITE_API_URL}/models/dataset-columns/${selectedDataset}`)
       .then(res => res.json())
       .then(data => {
         setDatasetColumns(data);
@@ -115,7 +116,7 @@ function ModelLab() {
 
   useEffect(() => {
     if (!taskType) return;
-    fetch(`${import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000'}/models/catalog?task=${taskType}`)
+    fetch(`${import.meta.env.VITE_API_URL}/models/catalog?task=${taskType}`)
       .then(res => res.json())
       .then(data => setModels(data.models || []));
   }, [taskType]);
@@ -125,7 +126,7 @@ function ModelLab() {
     setLoadingSuggestions(true);
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000'}/models/suggest?dataset_id=${selectedDataset}&target_column=${targetColumn}&task_type=${taskType}`
+        `${import.meta.env.VITE_API_URL}/models/suggest?dataset_id=${selectedDataset}&target_column=${targetColumn}&task_type=${taskType}`
       );
       const data = await res.json();
       setAiSuggestions(data);
@@ -154,7 +155,7 @@ function ModelLab() {
     try {
       let url, body;
       if (experimentMode === "ensemble") {
-        url = `${import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000'}/models/train-ensemble`;
+        url = `${import.meta.env.VITE_API_URL}/models/train-ensemble`;
         body = {
           dataset_id: selectedDataset,
           model_ids: selectedModels,
@@ -164,7 +165,7 @@ function ModelLab() {
           feature_selection: featureSelection
         };
       } else if (experimentMode === "single") {
-        url = `${import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000'}/models/train-multiple`;
+        url = `${import.meta.env.VITE_API_URL}/models/train-multiple`;
         body = {
           dataset_id: selectedDataset,
           model_ids: selectedModels,
@@ -174,7 +175,7 @@ function ModelLab() {
           feature_selection: featureSelection
         };
       } else {
-        url = `${import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000'}/models/train-multiple`;
+        url = `${import.meta.env.VITE_API_URL}/models/train-multiple`;
         body = {
           dataset_id: selectedDataset,
           model_ids: selectedModels,

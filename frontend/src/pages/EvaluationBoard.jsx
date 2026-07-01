@@ -1,3 +1,4 @@
+import { API_URL } from '../config';
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
@@ -18,7 +19,7 @@ function EvaluationBoard() {
   const fetchRuns = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000'}/models/runs`);
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/models/runs`);
       const data = await res.json();
       setRuns(data.runs || []);
     } finally {
@@ -33,7 +34,7 @@ function EvaluationBoard() {
   const handleDelete = async (runId, e) => {
     e.stopPropagation();
     if (!confirm("Delete this run?")) return;
-    await fetch(`${import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000'}/models/runs/${runId}`, { method: "DELETE" });
+    await fetch(`${import.meta.env.VITE_API_URL}/models/runs/${runId}`, { method: "DELETE" });
     fetchRuns();
     setSelectedRuns(prev => prev.filter(id => id !== runId));
   };
@@ -52,7 +53,7 @@ function EvaluationBoard() {
     setGeneratingReport(true);
     setReportResult(null);
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000'}/reports/generate`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/reports/generate`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ run_ids: selectedRuns })
@@ -217,7 +218,7 @@ function EvaluationBoard() {
             
               {reportResult && (
   <a
-    href={`${import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000'}/reports/${reportResult.id}/download`}
+    href={`${import.meta.env.VITE_API_URL}/reports/${reportResult.id}/download`}
     download
     className="px-4 py-2 rounded-xl bg-green-500/20 border border-green-400/30 hover:bg-green-500/30 transition text-sm"
   >

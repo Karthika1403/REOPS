@@ -8,7 +8,8 @@ import {
   FlaskConical, Brain
 } from "lucide-react";
 import ParticleUniverse from "../components/Effects/ParticleUniverse";
-
+const API = import.meta.env.VITE_API_URL || 'https://reops-ai.onrender.com';
+import { API_URL } from '../config';
 // ─── Welcome Hero ─────────────────────────────────────────────
 function WelcomeHero() {
   const [time, setTime] = useState(new Date());
@@ -81,7 +82,7 @@ function ConferencePulse() {
   const fetchConferences = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000'}/research-feed`);
+      const res = await fetch(`${API}/research-frontiers`);
       const data = await res.json();
       if (data.conferences?.length > 0) {
         setConferences(data.conferences);
@@ -217,7 +218,7 @@ function ResearchFrontiers() {
   const fetchFrontiers = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000'}/research-frontiers`);
+      const res = await fetch(`${API}/research-frontiers`);
       const data = await res.json();
       if (data.frontiers?.length > 0) {
         setFrontiers(data.frontiers);
@@ -359,7 +360,7 @@ function ResearchAssistant() {
     setLoading(true);
 
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000'}/research-assistant`, {
+     const res = await fetch(`${import.meta.env.VITE_API_URL}/research-assistant`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

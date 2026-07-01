@@ -1,3 +1,4 @@
+import { API_URL } from '../config';
 import { Sparkles, TrendingUp, Layers, Cpu, FlaskConical } from "lucide-react";
 import { useState, useEffect } from "react";
 import {
@@ -21,7 +22,7 @@ function ResearchLab() {
   const [topicSuggestions, setTopicSuggestions] = useState([]);
 
   const fetchDatasets = async () => {
-    const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000'}/datasets/all`);
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/datasets/all`);
     const data = await res.json();
     setBuiltinDatasets(data.builtin || []);
     setImportedDatasets(data.imported || []);
@@ -29,7 +30,7 @@ function ResearchLab() {
 
   useEffect(() => {
     fetchDatasets();
-    fetch(`${import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000'}/datasets/openml/suggestions`)
+    fetch(`${import.meta.env.VITE_API_URL}/datasets/openml/suggestions`)
       .then(res => res.json())
       .then(data => setTopicSuggestions(data.topics || []));
   }, []);
@@ -38,7 +39,7 @@ function ResearchLab() {
     setSearching(true);
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000'}/datasets/openml/search?q=${encodeURIComponent(openmlQuery)}`
+        `${import.meta.env.VITE_API_URL}/datasets/openml/search?q=${encodeURIComponent(openmlQuery)}`
       );
       const data = await res.json();
       if (Array.isArray(data.results)) {
@@ -58,7 +59,7 @@ function ResearchLab() {
   const handleOpenmlImport = async (openmlId) => {
     setImportingId(openmlId);
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000'}/datasets/openml/import`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/datasets/openml/import`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ openml_id: openmlId })
@@ -81,7 +82,7 @@ function ResearchLab() {
     const formData = new FormData();
     formData.append("file", selectedFile);
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000'}/datasets/upload-csv`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/datasets/upload-csv`, {
         method: "POST",
         body: formData
       });
@@ -102,7 +103,7 @@ function ResearchLab() {
     setPreviewLoading(true);
     setPreviewData(null);
     try {
-      const res = await fetch(` ${import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000'}/datasets/${datasetId}/preview`);
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/datasets/${datasetId}/preview`);
       const data = await res.json();
       setPreviewData(data);
     } finally {
