@@ -1,5 +1,5 @@
-from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from backend.api.routes import router
 from backend.plugins.loader import load_plugins
@@ -13,9 +13,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:5173",
-        "http://localhost:5174",
-        "https://repos-ai.vercel.app",
-        "https://*.vercel.app",
+        "http://127.0.0.1:5173"
     ],
     allow_credentials=True,
     allow_methods=["*"],

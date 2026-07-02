@@ -1,11 +1,20 @@
-import { API_URL } from '../config';
-import { Sparkles, TrendingUp, Layers, Cpu, FlaskConical } from "lucide-react";
+import { API_URL } from "../config";
 import { useState, useEffect } from "react";
-import {
-  Database, Upload, Search, Eye, X,
-  Loader
-} from "lucide-react";
 import { Link } from "react-router-dom";
+
+import {
+  Sparkles,
+  TrendingUp,
+  Layers,
+  Cpu,
+  FlaskConical,
+  Database,
+  Upload,
+  Search,
+  Eye,
+  X,
+  Loader,
+} from "lucide-react";
 
 function ResearchLab() {
   const [builtinDatasets, setBuiltinDatasets] = useState([]);
@@ -22,31 +31,40 @@ function ResearchLab() {
   const [topicSuggestions, setTopicSuggestions] = useState([]);
 
   const fetchDatasets = async () => {
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/datasets/all`);
+    const res = await fetch(`${API_URL}/datasets/all`);
     const data = await res.json();
+
     setBuiltinDatasets(data.builtin || []);
     setImportedDatasets(data.imported || []);
   };
 
   useEffect(() => {
     fetchDatasets();
-    fetch(`${import.meta.env.VITE_API_URL}/datasets/openml/suggestions`)
-      .then(res => res.json())
-      .then(data => setTopicSuggestions(data.topics || []));
+
+    fetch(`${API_URL}/datasets/openml/suggestions`)
+      .then((res) => res.json())
+      .then((data) => setTopicSuggestions(data.topics || []));
   }, []);
 
   const handleOpenmlSearch = async () => {
     setSearching(true);
+
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_API_URL}/datasets/openml/search?q=${encodeURIComponent(openmlQuery)}`
+        `${API_URL}/datasets/openml/search?q=${encodeURIComponent(openmlQuery)}`
       );
+
       const data = await res.json();
+
       if (Array.isArray(data.results)) {
         setOpenmlResults(data.results);
       } else {
         setOpenmlResults([]);
-        alert(`OpenML search failed: ${data.results?.error || JSON.stringify(data.results)}`);
+        alert(
+          `OpenML search failed: ${
+            data.results?.error || JSON.stringify(data.results)
+          }`
+        );
       }
     } catch (err) {
       console.error(err);
@@ -58,13 +76,20 @@ function ResearchLab() {
 
   const handleOpenmlImport = async (openmlId) => {
     setImportingId(openmlId);
+
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/datasets/openml/import`, {
+      const res = await fetch(`${API_URL}/datasets/openml/import`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ openml_id: openmlId })
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          openml_id: openmlId,
+        }),
       });
+
       const data = await res.json();
+
       if (data.success) {
         fetchDatasets();
         setActiveTab("imported");
@@ -78,15 +103,20 @@ function ResearchLab() {
 
   const handleUpload = async () => {
     if (!selectedFile) return;
+
     setUploading(true);
+
     const formData = new FormData();
     formData.append("file", selectedFile);
+
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/datasets/upload-csv`, {
+      const res = await fetch(`${API_URL}/datasets/upload-csv`, {
         method: "POST",
-        body: formData
+        body: formData,
       });
+
       const data = await res.json();
+
       if (data.success) {
         setSelectedFile(null);
         fetchDatasets();
@@ -99,18 +129,18 @@ function ResearchLab() {
     }
   };
 
-  const handlePreview = async (datasetId) => {
-    setPreviewLoading(true);
-    setPreviewData(null);
-    try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/datasets/${datasetId}/preview`);
-      const data = await res.json();
-      setPreviewData(data);
-    } finally {
-      setPreviewLoading(false);
-    }
-  };
+const handlePreview = async (datasetId) => {
+  setPreviewLoading(true);
+  setPreviewData(null);
 
+  try {
+    const res = await fetch(`${API_URL}/datasets/${datasetId}/preview`);
+    const data = await res.json();
+    setPreviewData(data);
+  } finally {
+    setPreviewLoading(false);
+  }
+};
   return (
     <div
       className="min-h-screen relative overflow-hidden text-white"
@@ -216,118 +246,184 @@ function ResearchLab() {
           </div>
         )}
 
-        {/* OpenML search */}
-        {activeTab === "openml" && (
-          <div>
-            <div className="mb-8 text-center">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-400/20 mb-4">
-                <Sparkles size={14} className="text-cyan-400" />
-                <span className="text-xs text-cyan-300">Search 20,000+ public research datasets</span>
-              </div>
-              <div className="flex gap-3 max-w-2xl mx-auto">
-                <div className="flex-1 flex items-center gap-3 px-5 py-4 rounded-2xl bg-black/30 border border-white/10 focus-within:border-cyan-400 transition">
-                  <Search size={20} className="text-white/30" />
-                  <input
-                    value={openmlQuery}
-                    onChange={(e) => setOpenmlQuery(e.target.value)}
-                    onKeyDown={(e) => e.key === "Enter" && handleOpenmlSearch()}
-                    placeholder="Try 'heart disease', 'iris', 'titanic'..."
-                    className="flex-1 bg-transparent outline-none text-base"
-                  />
-                </div>
-                <button
-                  onClick={handleOpenmlSearch}
-                  disabled={searching}
-                  className="px-6 py-4 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 transition text-sm font-medium disabled:opacity-50"
-                >
-                  {searching ? <Loader size={18} className="animate-spin" /> : "Search"}
-                </button>
-              </div>
+        {/* OpenML Search */}
+{activeTab === "openml" && (
+  <div>
+    <div className="mb-8 text-center">
+      <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-400/20 mb-4">
+        <Sparkles size={14} className="text-cyan-400" />
+        <span className="text-xs text-cyan-300">
+          Search 20,000+ public research datasets
+        </span>
+      </div>
+
+      <div className="flex gap-3 max-w-2xl mx-auto">
+        <div className="flex-1 flex items-center gap-3 px-5 py-4 rounded-2xl bg-black/30 border border-white/10 focus-within:border-cyan-400 transition">
+          <Search size={20} className="text-white/30" />
+
+          <input
+            type="text"
+            value={openmlQuery}
+            onChange={(e) => setOpenmlQuery(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") handleOpenmlSearch();
+            }}
+            placeholder="Try 'heart disease', 'iris', 'titanic'..."
+            className="flex-1 bg-transparent outline-none text-base placeholder:text-white/30"
+          />
+        </div>
+
+        <button
+          onClick={handleOpenmlSearch}
+          disabled={searching}
+          className="px-6 py-4 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 transition font-medium disabled:opacity-50 flex items-center justify-center"
+        >
+          {searching ? (
+            <Loader size={18} className="animate-spin" />
+          ) : (
+            "Search"
+          )}
+        </button>
+      </div>
+    </div>
+
+    {!searching &&
+      openmlResults.length === 0 &&
+      topicSuggestions.length > 0 && (
+        <div className="max-w-3xl mx-auto mb-10">
+          <p className="text-xs text-white/30 text-center mb-3 flex items-center justify-center gap-2">
+            <TrendingUp size={12} />
+            Popular research topics
+          </p>
+
+          <div className="flex flex-wrap justify-center gap-2">
+            {topicSuggestions.map((topic, index) => (
+              <button
+                key={index}
+                onClick={() => {
+                  setOpenmlQuery(topic);
+
+                  fetch(
+                    `${API_URL}/datasets/openml/search?q=${encodeURIComponent(
+                      topic
+                    )}`
+                  )
+                    .then((res) => res.json())
+                    .then((data) => {
+                      setOpenmlResults(data.results || []);
+                    });
+                }}
+                className="px-4 py-2 rounded-xl bg-white/5 border border-white/10 hover:border-cyan-400/40 hover:bg-cyan-500/10 transition text-sm text-white/70 hover:text-cyan-300 capitalize"
+              >
+                {topic}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+    {searching && (
+      <div className="text-center py-16">
+        <Loader
+          size={32}
+          className="mx-auto mb-3 text-cyan-400 animate-spin"
+        />
+        <p className="text-sm text-white/40">
+          Searching OpenML catalog...
+        </p>
+      </div>
+    )}
+  </div>
+)}
+           {/* OpenML Results */}
+{!searching && openmlResults.length > 0 && (
+  <div>
+    <p className="text-xs text-white/30 mb-4 flex items-center gap-2">
+      <Layers size={12} />
+      {openmlResults.length} dataset{openmlResults.length > 1 ? "s" : ""} found
+    </p>
+
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      {openmlResults.map((ds, index) => (
+        <div
+          key={ds.openml_id || index}
+          className="group p-5 rounded-2xl bg-gradient-to-br from-slate-900/60 to-slate-900/20 border border-white/10 hover:border-cyan-400/40 transition-all duration-300 hover:-translate-y-1"
+        >
+          <div className="flex items-start justify-between mb-3">
+            <div className="w-10 h-10 rounded-xl bg-cyan-500/20 flex items-center justify-center">
+              <Database size={18} className="text-cyan-400" />
             </div>
 
-            {openmlResults.length === 0 && !searching && (
-              <div className="max-w-3xl mx-auto mb-10">
-                <p className="text-xs text-white/30 text-center mb-3 flex items-center justify-center gap-2">
-                  <TrendingUp size={12} /> Popular research topics
-                </p>
-                <div className="flex flex-wrap justify-center gap-2">
-                  {topicSuggestions.map((topic, i) => (
-                    <button
-                      key={i}
-                      onClick={() => {
-                        setOpenmlQuery(topic.split(" ")[0]);
-                        setTimeout(handleOpenmlSearch, 50);
-                      }}
-                      className="px-4 py-2 rounded-xl bg-white/5 border border-white/10 hover:border-cyan-400/40 hover:bg-cyan-500/10 transition text-sm text-white/70 hover:text-cyan-300 capitalize"
-                    >
-                      {topic}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {searching && (
-              <div className="text-center py-16">
-                <Loader size={32} className="text-cyan-400 animate-spin mx-auto mb-3" />
-                <p className="text-white/40 text-sm">Searching OpenML catalog...</p>
-              </div>
-            )}
-
-            {!searching && openmlResults.length > 0 && (
-              <div>
-                <p className="text-xs text-white/30 mb-4 flex items-center gap-2">
-                  <Layers size={12} /> {openmlResults.length} datasets found
-                </p>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {openmlResults.map((ds, i) => (
-                    <div key={i} className="group p-5 rounded-2xl bg-gradient-to-br from-slate-900/60 to-slate-900/20 border border-white/10 hover:border-cyan-400/40 transition-all duration-300 hover:-translate-y-1">
-                      <div className="flex items-start justify-between mb-3">
-                        <div className="w-10 h-10 rounded-xl bg-cyan-500/20 flex items-center justify-center">
-                          <Database size={18} className="text-cyan-400" />
-                        </div>
-                        <span className={`text-xs px-2.5 py-1 rounded-lg font-medium ${
-                          ds.task_type === "classification"
-                            ? "bg-purple-500/20 text-purple-300"
-                            : "bg-green-500/20 text-green-300"
-                        }`}>
-                          {ds.task_type}
-                        </span>
-                      </div>
-                      <h3 className="font-bold text-white truncate group-hover:text-cyan-300 transition">{ds.name}</h3>
-                      <div className="flex gap-4 mt-3 text-xs text-white/40">
-                        <span className="flex items-center gap-1">
-                          <Layers size={10} /> {ds.n_rows.toLocaleString()} rows
-                        </span>
-                        <span>{ds.n_cols} features</span>
-                        {ds.n_classes > 0 && <span>{ds.n_classes} classes</span>}
-                      </div>
-                      <button
-                        onClick={() => handleOpenmlImport(ds.openml_id)}
-                        disabled={importingId === ds.openml_id}
-                        className="mt-4 w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-white/5 border border-white/10 hover:bg-green-500/20 hover:border-green-400/30 transition text-sm disabled:opacity-50"
-                      >
-                        {importingId === ds.openml_id ? (
-                          <><Loader size={14} className="animate-spin" /> Importing...</>
-                        ) : (
-                          <><Upload size={14} /> Import Dataset</>
-                        )}
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {!searching && openmlResults.length === 0 && openmlQuery && (
-              <div className="text-center py-16">
-                <Database size={48} className="text-white/10 mx-auto mb-3" />
-                <p className="text-white/40">No datasets found for "{openmlQuery}"</p>
-                <p className="text-white/20 text-sm mt-1">Try a broader term or one of the suggestions above</p>
-              </div>
+            {ds.task_type && (
+              <span
+                className={`text-xs px-2.5 py-1 rounded-lg font-medium ${
+                  ds.task_type === "classification"
+                    ? "bg-purple-500/20 text-purple-300"
+                    : ds.task_type === "regression"
+                    ? "bg-green-500/20 text-green-300"
+                    : "bg-cyan-500/20 text-cyan-300"
+                }`}
+              >
+                {ds.task_type}
+              </span>
             )}
           </div>
-        )}
+
+          <h3 className="font-bold text-white truncate group-hover:text-cyan-300 transition">
+            {ds.name}
+          </h3>
+
+          <div className="flex flex-wrap gap-4 mt-3 text-xs text-white/40">
+            <span className="flex items-center gap-1">
+              <Layers size={10} />
+              {(ds.n_rows ?? 0).toLocaleString()} rows
+            </span>
+
+            <span>{ds.n_cols ?? 0} features</span>
+
+            {ds.n_classes ? (
+              <span>{ds.n_classes} classes</span>
+            ) : null}
+          </div>
+
+          <button
+            onClick={() => handleOpenmlImport(ds.openml_id)}
+            disabled={importingId === ds.openml_id}
+            className="mt-4 w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-white/5 border border-white/10 hover:bg-green-500/20 hover:border-green-400/30 transition disabled:opacity-50"
+          >
+            {importingId === ds.openml_id ? (
+              <>
+                <Loader size={14} className="animate-spin" />
+                Importing...
+              </>
+            ) : (
+              <>
+                <Upload size={14} />
+                Import Dataset
+              </>
+            )}
+          </button>
+        </div>
+      ))}
+    </div>
+  </div>
+)}
+
+{/* No Results */}
+{!searching && openmlQuery.trim() !== "" && openmlResults.length === 0 && (
+  <div className="text-center py-16">
+    <Database size={48} className="mx-auto mb-3 text-white/10" />
+
+    <p className="text-white/40">
+      No datasets found for{" "}
+      <span className="font-semibold">"{openmlQuery}"</span>
+    </p>
+
+    <p className="mt-1 text-sm text-white/20">
+      Try a broader keyword or select one of the suggested topics above.
+    </p>
+  </div>
+)}
 
         {/* Upload */}
         {activeTab === "upload" && (

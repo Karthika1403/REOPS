@@ -7,5 +7,14 @@
     "n_rows": 100,
     "n_cols": 14,
     "uploaded_at": 1782591151.2854521
+  },
+  "0fb0b415-3fad-42ba-a060-b6430743a748": {
+    "id": "0fb0b415-3fad-42ba-a060-b6430743a748",
+    "name": "heart_disease_sample.csv",
+    "source": "upload",
+    "file_path": "backend/datasets/storage/heart_disease_sample.csv",
+    "n_rows": 100,
+    "n_cols": 14,
+    "uploaded_at": 1782976315.828098
   }
 }

@@ -1,15 +1,29 @@
+import { API_URL } from "../config";
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import {
-  Calendar, BookOpen, Zap, RefreshCw,
-  Loader, Send, MessageSquare, Clock,
-  Sparkles, AlertCircle, ExternalLink,
-  TrendingUp, Users, Award, ChevronRight,
-  FlaskConical, Brain
+  Calendar,
+  BookOpen,
+  Zap,
+  RefreshCw,
+  Loader,
+  Send,
+  MessageSquare,
+  Clock,
+  Sparkles,
+  AlertCircle,
+  ExternalLink,
+  TrendingUp,
+  Users,
+  Award,
+  ChevronRight,
+  FlaskConical,
+  Brain,
 } from "lucide-react";
 import ParticleUniverse from "../components/Effects/ParticleUniverse";
-const API = import.meta.env.VITE_API_URL || 'https://reops-ai.onrender.com';
-import { API_URL } from '../config';
+
+const API = API_URL;
+
 // ─── Welcome Hero ─────────────────────────────────────────────
 function WelcomeHero() {
   const [time, setTime] = useState(new Date());
@@ -82,7 +96,7 @@ function ConferencePulse() {
   const fetchConferences = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`${API}/research-frontiers`);
+      const res = await fetch(`${API_URL}/research-feed`);
       const data = await res.json();
       if (data.conferences?.length > 0) {
         setConferences(data.conferences);
@@ -218,7 +232,7 @@ function ResearchFrontiers() {
   const fetchFrontiers = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`${API}/research-frontiers`);
+      const res = await fetch(`${API_URL}/research-frontiers`);
       const data = await res.json();
       if (data.frontiers?.length > 0) {
         setFrontiers(data.frontiers);
@@ -350,38 +364,49 @@ function ResearchAssistant() {
   }, [messages]);
 
   const sendMessage = async (text) => {
-    const query = text || input;
-    if (!query.trim() || loading) return;
+  const query = text || input;
+  if (!query.trim() || loading) return;
 
-    const userMsg = { role: "user", text: query };
-    const newMessages = [...messages, userMsg];
-    setMessages(newMessages);
-    setInput("");
-    setLoading(true);
+  const userMsg = { role: "user", text: query };
+  const newMessages = [...messages, userMsg];
+  setMessages(newMessages);
+  setInput("");
+  setLoading(true);
 
-    try {
-     const res = await fetch(`${import.meta.env.VITE_API_URL}/research-assistant`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          query,
-          history: newMessages.slice(-8)
-        })
-      });
-      const data = await res.json();
-      setMessages(prev => [...prev, {
+  try {
+    const res = await fetch(`${API_URL}/research-assistant`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        query,
+        history: newMessages.slice(-8),
+      }),
+    });
+
+    const data = await res.json();
+
+    setMessages((prev) => [
+      ...prev,
+      {
         role: "assistant",
-        text: data.response || "Could not generate a response."
-      }]);
-    } catch {
-      setMessages(prev => [...prev, {
+        text: data.response || "Could not generate a response.",
+      },
+    ]);
+  } catch (error) {
+    setMessages((prev) => [
+      ...prev,
+      {
         role: "assistant",
-        text: "Connection failed. Make sure the backend is running on port 8000."
-      }]);
-    } finally {
-      setLoading(false);
-    }
-  };
+        text: "Connection failed. Make sure the backend is running.",
+      },
+    ]);
+  } finally {
+    setLoading(false);
+  }
+};
+    
 
   const suggestions = [
     "What is the difference between Random Forest and Gradient Boosting?",

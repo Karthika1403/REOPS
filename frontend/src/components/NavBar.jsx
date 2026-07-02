@@ -25,7 +25,7 @@ function NavBar() {
           <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-cyan-500 to-purple-500 flex items-center justify-center">
             <Cpu size={16} className="text-white" />
           </div>
-          <span className="font-bold text-white text-lg">FlowOps</span>
+          <span className="font-bold text-white text-lg">REOPS AI</span>
           <span className="text-xs px-2 py-0.5 rounded-lg bg-cyan-500/20 text-cyan-400 border border-cyan-400/20">
             AI
           </span>
