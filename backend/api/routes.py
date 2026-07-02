@@ -1,7 +1,7 @@
 from fastapi import APIRouter, UploadFile, File
 import shutil
 import os
-import time
+from duckduckgo_search import DDGS
 from pydantic import BaseModel
 from backend.agents.llm_planner import AGENT_REGISTRY
 from backend.datasets.registry import TOPIC_SUGGESTIONS
@@ -397,7 +397,7 @@ def suggest_models(dataset_id: str, target_column: str, task_type: str):
 def research_feed():
     from groq import Groq
     from dotenv import load_dotenv
-    from ddgs import DDGS
+    from duckduckgo_search import DDGS
     import json as json_lib
     from datetime import datetime
     load_dotenv()
@@ -467,7 +467,7 @@ CRITICAL: Only include conferences where the event date is AFTER {today}. Maximu
 def research_frontiers():
     from groq import Groq
     from dotenv import load_dotenv
-    from ddgs import DDGS
+    from duckduckgo_search import DDGS
     import json as json_lib
     from datetime import datetime
     load_dotenv()
@@ -546,7 +546,7 @@ CRITICAL: Only include items from {current_year}. Be specific about achievements
 def research_assistant(request: dict):
     from groq import Groq
     from dotenv import load_dotenv
-    from ddgs import DDGS
+    from duckduckgo_search import DDGS
     import json as json_lib
     load_dotenv()
     client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
