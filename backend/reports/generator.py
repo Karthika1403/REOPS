@@ -140,7 +140,7 @@ def generate_report_text(run_ids: list) -> dict:
     run_data_text = _format_run_data(runs)
 
     completion = client.chat.completions.create(
-        model="llama-3.3-70b-versatile",
+        model="openai/gpt-oss-120b",
         max_tokens=3000,
         messages=[{"role": "user", "content": REPORT_PROMPT.format(run_data=run_data_text)}]
     )

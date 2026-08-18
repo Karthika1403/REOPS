@@ -453,7 +453,7 @@ Return ONLY valid JSON, no markdown:
 CRITICAL: Only include conferences where the event date is AFTER {today}. Maximum 6. If unsure about a date, skip it."""
 
         completion = client.chat.completions.create(
-            model="llama-3.3-70b-versatile",
+            model="openai/gpt-oss-120b",
             messages=[{"role": "user", "content": prompt}]
         )
         raw = completion.choices[0].message.content.strip()
@@ -533,7 +533,7 @@ Return ONLY valid JSON, no markdown:
 CRITICAL: Only include items from {current_year}. Be specific about achievements — avoid vague descriptions. Maximum 6 items."""
 
         completion = client.chat.completions.create(
-            model="llama-3.3-70b-versatile",
+            model="openai/gpt-oss-120b",
             messages=[{"role": "user", "content": prompt}]
         )
         raw = completion.choices[0].message.content.strip()
@@ -603,7 +603,7 @@ INSTRUCTIONS:
     messages.append({"role": "user", "content": query})
 
     completion = client.chat.completions.create(
-        model="llama-3.3-70b-versatile",
+        model="openai/gpt-oss-120b",
         messages=[{"role": "system", "content": system_prompt}] + messages
     )
     return {"response": completion.choices[0].message.content}

@@ -53,7 +53,7 @@ class LLMPlanner:
     def plan(self, query: str):
         try:
             completion = client.chat.completions.create(
-                model="llama-3.3-70b-versatile",
+                model="openai/gpt-oss-120b",
                 messages=[{"role": "user", "content": PLANNER_PROMPT.format(
                     plugins=AVAILABLE_PLUGINS, query=query
                 )}]
