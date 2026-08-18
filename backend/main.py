@@ -1,7 +1,7 @@
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
-from api.routes import router
+from backend.api.routes import router
 from backend.plugins.loader import load_plugins
 import os
 
